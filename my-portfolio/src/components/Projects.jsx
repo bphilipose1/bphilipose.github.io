@@ -1,52 +1,36 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import React from 'react';
+import ResearchCard from './ResearchCard';
 
-const featuredProjects = [
-  {
-    name: "LegalEase",
-    desc: "AI-powered business filing chatbot (RAG + LLMs).",
-    link: "https://github.com/bphilipose1/LegalEase"
-  },
-  {
-    name: "Age Prediction Neural Networks",
-    desc: "Multi-modal CNN + CUDA GPU optimization.",
-    link: "https://github.com/bphilipose1/AgeFacePredictionDNN"
-  },
-  {
-    name: "ResponSight (Hackathon)",
-    desc: "Traffic collision ML model on AWS.",
-    link: "#"
-  }
-];
-
-export default function Projects() {
-  const [repos, setRepos] = useState([]);
-
-  useEffect(() => {
-    axios.get("https://api.github.com/users/bphilipose1/repos?sort=updated")
-      .then(res => setRepos(res.data))
-      .catch(err => console.error(err));
-  }, []);
+export default function ProjectsList() {
+  const researchData = [
+    {
+      title: "fMRI-based Autism Detection",
+      institution: "Seattle University",
+      period: "06/2024 – 08/2024",
+      description: "Designed a Community-Aware Transformer (CAT) and GCN to model brain connectivity. Optimized training with CUDA to handle high-dimensional neuroimaging datasets.",
+      metrics: ["85.98% Accuracy", "30% Faster Diagnosis"],
+      tags: ["PyTorch", "GNNs", "CUDA", "Neuroimaging"],
+      
+    },
+    {
+      title: "AV Simulation Performance Optimization",
+      institution: "NIST",
+      period: "06/2023 – 08/2023",
+      description: "Developed a low-latency data transfer tool in C++ for autonomous vehicle simulations. Integrated NS-3 and ROS2 for real-time data exchange.",
+      metrics: ["75% Latency Reduction"],
+      tags: ["C++", "ROS2", "Parallel Programming", "NS-3"],
+      link: "https://www.nist.gov/publications/feature-description-assessing-autonomous-vehicle-performance"
+    }
+  ];
 
   return (
-    <section>
-      <h2>Projects</h2>
-      <div className="project-grid">
-        {featuredProjects.map(p => (
-          <div key={p.name} className="card">
-            <h3>{p.name}</h3>
-            <p>{p.desc}</p>
-            <a href={p.link} target="_blank">View on GitHub</a>
-          </div>
-        ))}
-        {repos.map(r => (
-          <div key={r.id} className="card">
-            <h3>{r.name}</h3>
-            <p>{r.description || "No description"}</p>
-            <a href={r.html_url} target="_blank">GitHub Repo</a>
-          </div>
-        ))}
-      </div>
-    </section>
+    <div className="max-w-5xl mx-auto py-12 px-4">
+      <h2 className="text-4xl font-bold mb-2 text-white italic">_research_work</h2>
+      <p className="text-slate-500 mb-12 font-mono">Peer-reviewed publications and institutional research.</p>
+      
+      {researchData.map((item, index) => (
+        <ResearchCard key={index} {...item} />
+      ))}
+    </div>
   );
 }

@@ -1,23 +1,30 @@
-import "./App.css";
-import Header from "./components/Header";
-import About from "./components/About";
-import Skills from "./components/Skills";
-import Experience from "./components/Experience";
-import Education from "./components/Education";
-import Projects from "./components/Projects";
-import Contact from "./components/Contact";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
+import ProjectPage from "./pages/ProjectPage";
+import About from './pages/About';
+// IMPORT THE MISSING COMPONENT HERE
+// Make sure the path matches your actual file location!
+import ProjectsList from "./components/Projects"; 
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <About />
-      <Skills />
-      <Experience />
-      <Education />
-      <Projects />
-      <Contact />
-    </div>
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          
+          {/* This matches the /projects link in your Nav */}
+          <Route path="/projects" element={<ProjectsList />} />
+          
+          {/* This is for the individual deep-dives */}
+          <Route path="/project/:id" element={<ProjectPage />} />
+          
+          <Route path="*" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </Layout>
+    </Router>
   );
 }
 
