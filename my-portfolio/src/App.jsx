@@ -3,25 +3,24 @@ import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import ProjectPage from "./pages/ProjectPage";
 import About from './pages/About';
-// IMPORT THE MISSING COMPONENT HERE
-// Make sure the path matches your actual file location!
 import ProjectsList from "./components/Projects"; 
+import SystemStatusBar from "./components/SystemStatusBar";
+import NotFound from "./pages/NotFound"; // Import the Error page
 
 function App() {
   return (
     <Router>
+      <SystemStatusBar />
+
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          
-          {/* This matches the /projects link in your Nav */}
           <Route path="/projects" element={<ProjectsList />} />
-          
-          {/* This is for the individual deep-dives */}
+          <Route path="/about" element={<About />} />
           <Route path="/project/:id" element={<ProjectPage />} />
           
-          <Route path="*" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          {/* ⚠️ The "Kernel Panic" Catch-all */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
     </Router>
