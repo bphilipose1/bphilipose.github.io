@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const experiences = [
   {
@@ -76,7 +77,7 @@ const experiences = [
       "Designed automated test cases for real-time vehicle behavior evaluation."
     ],
     tech: ["SoapUI", "AV Testing", "Automated QA"],
-    
+
   },
   {
     company: "Federal Way Public Schools",
@@ -93,49 +94,59 @@ const experiences = [
     externalLinks: []
   }
 ];
+
 export default function ExperienceTimeline() {
   return (
     <div className="py-12">
       <h3 className="text-2xl font-mono mb-10 text-blue-400">01_professional_experience</h3>
       
-      {/* Container with extra left margin to accommodate the labels */}
-      <div className="relative border-l-2 border-slate-800 ml-12 md:ml-40 space-y-12">
+      {/* Container with margin-left (ml-32+) to prevent education markers from cutting off */}
+      <div className="relative border-l-2 border-slate-800 ml-32 md:ml-48 space-y-12">
         {experiences.map((exp, index) => (
           <React.Fragment key={index}>
             
-            {/* GRADUATION CHECKPOINT: MS */}
-            {exp.company === "Meta – Contract" && (
-              <div className="absolute right-full mr-4 mt-70 flex items-center group">
-                <div className="bg-blue-600/20 text-blue-400 border border-blue-500/40 text-[9px] font-mono px-2 py-0.5 rounded-sm whitespace-nowrap shadow-[0_0_10px_rgba(59,130,246,0.1)]">
-                  M.S. COMP SCI [2025]
+            {/* 🎓 M.S. GRADUATION CHECKPOINT - Pinned to SU Research */}
+            {exp.company === "Seattle University" && exp.role === "Machine Learning Researcher" && (
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="absolute right-full mr-6 -mt-2 flex items-center z-10"
+              >
+                <div className="bg-blue-600/10 text-blue-400 border border-blue-500/30 text-[10px] font-mono px-3 py-1 rounded-sm shadow-[0_0_15px_rgba(59,130,246,0.1)] uppercase tracking-tight">
+                  MS_GRAD_COMPLETE // 2025
                 </div>
-                <div className="w-4 h-[1px] bg-blue-500/40"></div>
-              </div>
+                <div className="w-6 h-[1px] bg-blue-500/30"></div>
+              </motion.div>
             )}
 
-            {/* GRADUATION CHECKPOINT: BS */}
-            {exp.role === "Algorithms Engineer V" && (
-              <div className="absolute right-full mr-4 mt-80 flex items-center">
-                <div className="bg-cyan-600/20 text-cyan-400 border border-cyan-500/40 text-[9px] font-mono px-2 py-0.5 rounded-sm whitespace-nowrap shadow-[0_0_10px_rgba(34,211,238,0.1)]">
-                  B.S. COMP SCI & 
-                  <br></br> COMP ENG GRAD [2025]
+            {/* 🎓 B.S. GRADUATION CHECKPOINT - After AWS Capstone period */}
+            {exp.company === "NIST" && index === 3 && (
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="absolute right-full mr-6 -mt-2 flex items-center z-10"
+              >
+                <div className="bg-cyan-600/10 text-cyan-400 border border-cyan-500/30 text-[10px] font-mono px-3 py-1 rounded-sm shadow-[0_0_15px_rgba(34,211,238,0.1)] uppercase tracking-tight">
+                  BS_GRAD_COMPLETE // 2025
                 </div>
-                <div className="w-4 h-[1px] bg-cyan-500/40"></div>
-              </div>
-            )}
-            {/* Highschool CHECKPOINT: BS */}
-            {exp.role === "Information Technology Intern" && (
-              <div className="absolute right-full mr-4 -mt-8 flex items-center">
-                <div className="bg-cyan-600/20 text-cyan-400 border border-cyan-500/40 text-[9px] font-mono px-2 py-0.5 rounded-sm whitespace-nowrap shadow-[0_0_10px_rgba(34,211,238,0.1)]">
-                  H.S. GRAD [2021]
-                </div>
-                <div className="w-4 h-[1px] bg-cyan-500/40"></div>
-              </div>
+                <div className="w-6 h-[1px] bg-cyan-500/30"></div>
+              </motion.div>
             )}
 
-            {/* EXPERIENCE CARD */}
-            <div className="relative pl-8 group">
-              <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-blue-500 border-4 border-slate-950 shadow-[0_0_10px_rgba(59,130,246,0.5)] group-hover:scale-125 transition-transform duration-300"></div>
+            {/* EXPERIENCE CARD with Scroll Reveal */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="relative pl-8 group"
+            >
+              {/* Timeline Marker (The glowing blue dot) */}
+              <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-blue-500 border-4 border-slate-950 shadow-[0_0_10px_rgba(59,130,246,0.5)] group-hover:scale-125 transition-transform duration-300 z-20"></div>
               
               <div className="flex flex-col md:flex-row md:justify-between items-start mb-2">
                 <div>
@@ -161,7 +172,7 @@ export default function ExperienceTimeline() {
                 ))}
               </ul>
 
-              <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-slate-900">
+              <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-900/50">
                 <div className="flex flex-wrap gap-2">
                   {exp.tech.map((t, i) => (
                     <span key={i} className="text-[10px] font-mono bg-slate-800/30 text-slate-500 px-2 py-0.5 rounded border border-slate-800">
@@ -187,8 +198,23 @@ export default function ExperienceTimeline() {
                   </div>
                 )}
               </div>
-            </div>
+            </motion.div>
 
+            {/* 🎓 HS GRADUATION CHECKPOINT - Pinned to FWPS */}
+            {exp.company === "Federal Way Public Schools" && (
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="absolute right-full mr-6 mt-12 flex items-center z-10"
+              >
+                <div className="bg-slate-800/50 text-slate-500 border border-slate-700 text-[10px] font-mono px-3 py-1 rounded-sm uppercase tracking-tight">
+                  HS_DIPLOMA_COMPLETE // 2021
+                </div>
+                <div className="w-6 h-[1px] bg-slate-700"></div>
+              </motion.div>
+            )}
 
           </React.Fragment>
         ))}
