@@ -3,17 +3,18 @@
   <head>
     <meta charset="utf-8">
     <title>BPhilipose System Redirect</title>
-    <script type="text/javascript">
-      // This script takes the current URL and redirects it back to index.html
-      // with the path as a query string so React Router can handle it.
-      var l = window.location;
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1).join('/') + '/?p=/' +
-        l.pathname.slice(1).split('/').slice(1).join('/').replace(/&/g, '~and~') +
-        (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
-      );
+    <script>
+      // Redirect to index.html so React Router can handle all routes
+      var path = window.location.pathname;
+      var repoName = '/bphilipose-diagnostics';
+      
+      // If the path starts with the repo name, preserve the path after it
+      // Otherwise, redirect to index.html
+      if (!path.startsWith(repoName)) {
+        window.location.href = repoName + '/index.html';
+      } else {
+        window.location.href = repoName + '/index.html';
+      }
     </script>
   </head>
   <body>
